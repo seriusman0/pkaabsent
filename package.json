@@ -1,0 +1,33 @@
+{
+  "name": "websockets",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markbrown4/websockets.git"
+  },
+  "bugs": {
+    "url": "https://github.com/markbrown4/websockets/issues"
+  },
+  "homepage": "https://github.com/markbrown4/websockets#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.13.4",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "mysql": "^2.18.1",
+    "tableexport": "^5.2.0",
+    "ws": "^1.1.5",
+    "wss": "^3.3.4"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.1",
+    "utf-8-validate": "^5.0.2"
+  },
+  "devDependencies": {
+    "npm-start-command": "^1.0.1"
+  }
+}

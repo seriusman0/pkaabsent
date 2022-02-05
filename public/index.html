@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/qrcodelib.js"></script>
+    <script type="text/javascript" src="js/webcodecamjs.js"></script>
+
+
+
+    <link rel="stylesheet" href="source/bootstrap.min.css">
+    <script src="source/jquery.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.js"></script>-->
+    <script src="source/popper.min.js"></script>
+    <script src="source/bootstrap.min.js"></script>
+
+    <!--<script src="datatables/jquery.dataTables.js"></script>-->
+    <script src="source/jquery.dataTables.min.js"></script>
+    <!--<script src="datatables/dataTables.bootstrap.js"></script>-->
+    <!--<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>-->
+    <script src="source/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="source/dataTables.bootstrap4.min.css">
+    <link rel="icon" href="data:;base64,=">
+
+
+
+    <title></title>
+    <style media="screen">
+      td { vertical-align: top }
+    
+      img {
+        border-radius: 50%;
+        
+      }
+    </style>
+
+  </head>
+
+
+  <body>
+    <script src="client.js"></script>
+    
+        <form class="form-inline">
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-outline-dark btn-lg" onclick="displayAbsent()">View Today's Presence</button> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEEK:&nbsp;
+        <select id="absentSummaryWeeklyOpt" class="form-control" name="absentWeekOpt">
+            <option value="1">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+            <option value="32">32</option>
+            <option value="33">33</option>
+            <option value="34">34</option>
+            <option value="35">35</option>
+            <option value="36">36</option>
+            <option value="37">37</option>
+            <option value="38">38</option>
+            <option value="39">39</option>
+            <option value="40">40</option>
+            <option value="41">41</option>
+            <option value="42">42</option>
+            <option value="43">43</option>
+            <option value="44">44</option>
+            <option value="45">45</option>
+            <option value="46">46</option>
+            <option value="47">47</option>
+            <option value="48">48</option>
+            <option value="49">49</option>
+            <option value="50">50</option>
+            <option value="51">51</option>
+            <option value="52">52</option>
+        </select> &nbsp;&nbsp;
+        <button type="button" class="btn btn-outline-dark btn-lg" onclick="reqestAbsentSummary()">View Presence Summary</button>
+        </form>
+    <table class="table" id="bodyTable">
+        <tr>
+            <td style="width:65%; height:30%;">
+                <center>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 bg-primary">
+                            <h2 class="m-0 font-weight-bold text-white" id='dateToday'> </h2>
+                            <!--<p id='dateToday' style="font-size:25pt"> -->
+                                <script type="text/javascript">
+                                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                                document.getElementById("dateToday").innerHTML = new Date().toLocaleDateString('en-ID', options);
+                                </script>
+                            <!--</p> -->
+                        </div>
+                        <div class="card-body">
+                            <p id='clock' style="font-size:70pt">
+                                <script type="text/javascript">
+                                        var myVar = setInterval(myTimer, 1000);
+                                        function myTimer() {
+                                            document.getElementById("clock").innerHTML = new Date().toLocaleTimeString('it-IT');
+                                        }
+                                </script>
+                            </p>
+                        </div>
+                    </div>
+                
+                
+                </center>
+            </td>
+
+            <td style="width:40%; font-size: 14pt" rowspan="2">
+                <table class="table table-striped" id="dailyScheduleTable" >
+                    <thead>
+                        <tr>
+                            <th>Today's Schedule</th>
+                            <th>Start Time</th>
+                        </tr>
+                    </thead>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:10%;">
+                <!-- Basic Card Example -->
+                            <div class="card shadow mb-4 anouncement_marquee">
+                                <div class="card-header py-3 bg-primary">
+                                    <marquee><h3 class="m-0 font-weight-bold text-white">A  N  N  O  U  N  C  E  M  E  N  T</h3></marquee>
+                                </div>
+                                <div class="card-body"><font size="4pt"><p id="anouncement">
+                                    Karena kasih karunia Allah yang menyelamatkan semua manusia sudah nyata. Ia (kasih karunia Allah ini) mendidik (melatih) kita supaya kita meninggalkan kefasikan dan keinginan-keinginan duniawi dan supaya kita hidup bijaksana, adil dan beribadah di dalam dunia sekarang ini dengan menantikan penggenapan pengharapan kita yang penuh bahagia dan penyataan kemuliaan Allah yang Mahabesar dan Juruselamat kita Yesus Kristus, yang telah menyerahkan diri-Nya bagi kita untuk membebaskan kita dari segala kejahatan dan untuk menguduskan bagi diri-Nya suatu umat, kepunyaan-Nya sendiri, yang rajin berbuat baik. <b>(Titus 2:11-14)</b>
+                                </p></font></div>
+                            </div>
+            </td>
+        </tr>
+    </table>
+
+   
+
+
+
+
+  <!-------------------- Modal view Absent-------------->
+  <div class="modal fade" id="modalViewAbsent" role="dialog">
+    <div class="modal-dialog modal-xl" style="width:1400px;" >
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:550px;">
+                <table class="table table-bordered table-hover" id="viewAbsentTable" >
+                </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <h5 align="left"><script type="text/javascript">document.write(new Date().toLocaleDateString('en-ID', options) + "&nbsp;&nbsp;");</script></h5>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+  <!------------------------ Modal view AbsentSummary-------------------------------->
+  <div class="modal fade" id="modalViewAbsentSummary" role="dialog">
+    <div class="modal-dialog modal-xl" style="width:800px;" >
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:550px;">
+                <table class="table table-bordered table-hover" id="viewAbsentSummaryTable" >
+                </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <h5 align="left" id="h5AbesntWeekSummary"></h5>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+    <!-------------------------- Modal view DetailAbsentSummary------------------------------->
+  <div class="modal fade" id="modalViewDetailAbsentSummary" role="dialog">
+    <div class="modal-dialog modal-xl" style="width:650px;" >
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:550px;">
+                <table class="table table-bordered table-hover" id="ViewDetailAbsentSummaryTable" >
+                </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <h5 align="left" id="h5DetailAbsentSummary"></h5>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    <!-------------------------------- Modal ABSENSI      bd-example-modal-xl-->
+  <div class="modal fade bd-example-modal-xl--" role="document" id="modalShowCamera" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 90% !important; height: 95% !important;" ><!--style="width:1700px;" modal-xl-->
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <p class="modal-title font-weight-bold text-white" id="modalShowCamera-Title"></p>
+          <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        </div>
+        <div class="modal-body">
+            
+            <table class="table table-bordered">
+                <tr>
+                    <td style="width:50%; text-align:center; valign:middle;">
+                        <canvas id="webcodecam-canvas" class="flash"></canvas>
+                        <br>Scan your QRcode in front of camera.
+                    </td>
+
+                    <td style="width:50%; font-size: 11pt">
+                        <!----------------- Tabel Absen ----------------->
+                              <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:500px;">
+                              <table class="table table-sm table-hover" id="absentTable" style="vertical-align: middle;">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Absent Time</th>
+                                    <th>Mark</th>
+                                  </tr>
+                                </thead>
+                                <tbody >
+                                  
+                                </tbody>
+                              </table>
+                              </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>        
+      </div>
+      
+    </div>
+  </div>
+<!-- end modal ABSENSI-->
+
+
+
+
+  <!--------------- Modal trainee photo---------------------------->
+  <div class="modal fade" id="modalViewPhoto" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:530px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <center><img id="image" src="" width="500px" height="500px" alt="" /></center>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+<!--------------- Alert/Information MODAL -->
+<div id="alert_modal" class="modal fade">  
+      <div class="modal-dialog modal-s modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Information</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button> 
+                </div>  
+                <div class="modal-body" id="alert_txt_content">  
+                     
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
+                </div>  --> 
+           </div>  
+      </div>  
+ </div> 
+
+
+
+
+
+
+
+
+<center><p>PKA Absent system (ver. 1.0) - © 2021 by ArmSoft</p></center>
+ <ul id="log"></ul>
+
+
+
+
+
+
+<!---------------------------- event handling ------------------------------------->
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#modalShowCamera').on('hidden.bs.modal', function (e) { //scanner di close
+                decoder.stop();
+                decoder = null;
+                //var totalAbsent = document.getElementById("totalAbsent");
+                var tAbsent = document.getElementById("absentTable");
+                while(tAbsent.rows.length > 1) {
+                    tAbsent.deleteRow(1);
+                }
+                //cek data absen (siapa saja yg tidak absen, lalu masukkan yg bersangkutan tdak absen beri mark X), kemudian kirimkan data absen
+
+                //saveAbsentData();
+                clearTimeout(timerAbsent);
+
+                //setelah dikirimkan ke server kosongkan kembali data absen  
+                //totalAbsent.innerHTML = "Name ( 0 )";
+            });
+
+            $('#modalShowCamera').on('show.bs.modal', function (e) {
+                
+            });
+
+
+            $('#modalViewDetailAbsentSummary').on('show.bs.modal', function (e) {
+                var data = ($(e.relatedTarget).data('id')).split('~~~---|||<<<>>>|||---~~~');
+                var inner = "";
+                if(data[3]==='V'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-success\">V</span>"+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                else if(data[3]==='O'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-warning\">O</span>"+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                else if(data[3]==='X'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-danger\">X</span>"+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                else if(data[3]==='i'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-primary\">i</span>"+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                else if(data[3]==='s'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-info\">s</span>"+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                document.getElementById("h5DetailAbsentSummary").innerHTML = inner;
+                reqestDetailAbsentSummary(data);
+            });
+
+
+        });
+        </script>
+  </body>
+</html>

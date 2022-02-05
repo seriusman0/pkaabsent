@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    img {
+        border-radius: 7%;
+        border: 10px solid #555;
+    }
+</style>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Absen ADMIN - Tables</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+
+
+
+<!-------------------------------------------------------------------------------->
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!--DataTable content-->
+    <script src="vendor/datatables/new/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!--Exporting table-->
+    <script src="vendor/datatables/dataTables.buttons.min.js"></script>
+    <script src="js/jszip.min.js"></script>
+    <script src="vendor/datatables/buttons.html5.min.js"></script>
+    
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+    <!-- editable table scripts            <script src="js/tabledit/jquery.tabledit.min.js"></script> -->
+    <script src="js/tabledit/jquery.tabledit.js"></script>
+
+
+
+
+
+
+
+</head>
+
+<body id="page-top">
+    <script src="tables.js"></script>
+
+
+
+
+<!-- Menu Schedule ----------------------------------------------------------------------------->
+
+
+
+<!-- MENU SCHEDULE MODAL  -->
+<div id="schedule_data_table_modal" class="modal fade bd-example-modal-xl" role="dialog" >  
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 85% !important; height: 95% !important;">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <h5 class="modal-title" id="title_modal_schedule_data">SCHEDULE</h5> 
+                     <button type="button" class="close btn-danger" data-dismiss="modal">&times;</button>
+                </div>  
+                <div class="modal-body" >  
+                            <div class="table-responsive" >
+                                <table class="display compact table-hover" id="tblDataSchedule" ><!-- style="width:100%" class="table stripe table-bordered"-->
+                                    <thead class="text-primary"></thead>
+                                    <tbody></tbody>
+                                    <tfoot class="text-primary">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <!--<table id="example" class="display" width="100%"></table>-->
+                            </div>
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>-->  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+<!-- ADD/UPDATE Schedule data MODAL -->
+<div id="add_schedule_data_Modal" class="modal fade">  
+      <div class="modal-dialog modal-xl modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Schedule Data</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>  
+                </div>  
+                <div class="modal-body">  
+                     <form method="post" id="insert_form">
+                        <div class="form-row">  
+                            <div class="form-group col-md-6">
+                          <label for="batch">Batch</label>  
+                          <input type="number" min="44" name="batch" id="batch" class="form-control" required/>
+                            </div>
+                            <div class="form-group col-md-6">  
+                          <label for="week">Week</label>  
+                          <input type="number" min="1" name="week" id="week" class="form-control" required/>
+                            </div> <br/> 
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                          <label>Select Schedule</label>  
+                          <select class="custom-select" id="presenceItems">
+
+                          </select>
+                            </div>
+                            <div class="col">
+                          <label>Additional info of Schedule</label>  
+                          <input type="text" name="info" id="info" class="form-control"/>  
+                            </div>       
+                        </div><br/>
+                        <div class="form-row">
+                            <div class="col">
+                          <label>Schedule Date (yyyy/mm/dd)</label>  
+                          <input type="date" name="date" id="date" class="form-control" required/>
+                            </div>
+                            <div class="col">
+                          <label for="start_time">Start Time (hh:mm:ss)</label>  
+                          <input type="time" name="start_time" id="start_time" class="form-control" required/>  
+                            </div>
+                            <div class="col">
+                          <label for="end_time">End Time (hh:mm:ss)</label>  
+                          <input type="time" name="end_time" id="end_time" class="form-control" required/>  
+                            </div>
+                            <div class="col">
+                          <label>Absent Time (hh:mm:ss)</label>  
+                          <input type="time" name="absent_time" id="absent_time" class="form-control" required/>  
+                            </div>
+                        </div><br/>
+                        <div class="form-row">
+                            <div class="col">
+                          <label>Is Need Absent (0=no or 1=yes)</label>  
+                          <!--<input type="number" min="0" max="1" name="is_need_absent" id="is_need_absent" class="form-control" /> -->
+                          <select class="custom-select" id="is_need_absent">
+                            <option>1</option>
+                            <option>0</option>
+                          </select> 
+                            </div>
+                            <div class="col">
+                          <label>Has Triggered (0=no or 1=yes)</label>  
+                          <!--<input type="number" min="0" max="1" name="has_triggered" id="has_triggered" class="form-control" />-->
+                          <select class="custom-select" id="has_triggered">
+                            <option>0</option>
+                            <option>1</option>
+                          </select> 
+                            </div>
+                        </div><br/>
+                        <div class="form-row">
+                            <div class="col">
+                          <label>Participant (all or ipa or ips)</label>  
+                          <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
+                          <select class="custom-select" id="participant">
+                            <option>all</option>
+                            <option>ipa</option>
+                            <option>ips</option>
+                          </select>
+                            </div>
+                            <div class="col">
+                          <label>Area (umum or kamar)</label>  
+                          <!--<input type="text" name="area" id="area" class="form-control" /> -->
+                          <select class="custom-select" id="area">
+                            <option>umum</option>
+                            <option>kamar</option>
+                          </select> 
+                          
+                            </div>
+                            <div class="col">
+                          <label>Absent Timer (durasi absensi)</label>  
+                          <input type="number" min="5" value="5" name="txtAbsentTimer" id="txtAbsentTimer" class="form-control" required/>
+                            </div>
+                        </div><br/>
+                          <input type="hidden" name="schedule_id" id="schedule_id" />
+                          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success"/>  
+                     </form>  
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                </div>  -->
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+<!-- ADD Schedule data from SQL MODAL -->
+<div id="add_data_from_sql_Modal" class="modal fade">  
+      <div class="modal-dialog modal-xl modal-dialog-centered" >  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h4 class="modal-title">SQL Executor - Enter SQL Statement</h4> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>  
+                </div>  
+                <div class="modal-body">  
+                     <form method="post" id="insert_form_sql"> 
+                          <textarea name="txtsql" id="txtsql" class="form-control" rows="17" style="font-family:monospace;" required></textarea> <br/>
+                          <input type="submit" name="executeSQL" id="executeSQL" value="Execute" class="btn btn-success" />  
+                     </form>  
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                </div>  -->
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+
+<!-- DELETE Schedule data MODAL -->
+<div id="delete_schedule_data_Modal" class="modal fade">  
+      <div class="modal-dialog modal-l modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Delete Schedule Data</h5> 
+                     <!--<button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+                </div>  
+                <div class="modal-body" id="txtDeleteScheduleConfirmation">  
+                     
+                </div>  
+                <div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+
+
+
+
+
+
+<!--Menu Asent ---------------------------------------------------------------------------------------->
+
+
+
+
+<!-- MENU ABSENT MODAL  -->
+<div id="absent_data_table_modal" class="modal fade bd-example-modal-xl" role="dialog" >  
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 95% !important; height: 95% !important;">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <form method="post" id="form_request_presence_progress_report">
+                        <label for="StartDatePR">Progress Report: From</label>
+                        <input type="date" name="startDatePR" id="startDatePR" required/>
+                        <label for="endDatePR">Until</label> 
+                        <input type="date" name="endDatePR" id="endDatePR" required/>
+                        <input type="submit" value="GET Presence Progress Report" class="btn btn-success"/>
+                    </form>
+                     <button type="button" class="close btn-danger" data-dismiss="modal">&times;</button>
+                </div>  
+                <div class="modal-body" >  
+                    
+                    <form method="post" id="form_request_absent_summary">
+                        <label for="StartDate">Absent Summary: From</label>
+                        <input type="date" name="startDate" id="startDate" required/>
+                        <label for="endDate">Until</label> 
+                        <input type="date" name="endDate" id="endDate" required/>
+                        <input type="submit" value="GET Summary" class="btn btn-success"/>
+                    </form>    <br>
+                            <div class="table-responsive" >
+                                <table class="display compact table-hover" id="tblDataAbsent" style="width:100%" >
+                                    <thead class="text-primary"></thead>
+                                    <tbody></tbody>
+                                    <tfoot class="text-primary">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <!--<table id="example" class="display" width="100%"></table>-->
+                            </div>
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>-->  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+
+<!-- UPDATE Absent data MODAL -->
+<div id="update_absent_data_Modal" class="modal fade">  
+      <div class="modal-dialog modal-l modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Absent Data</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>  
+                </div>  
+                <div class="modal-body">  
+                     <p id="txtUpdateAbsentData"></p>
+
+                     <form method="post" id="form_update_absent">
+                        <div class="form-row">
+                            <div class="col">
+                                
+                            </div>
+                        </div><br/>
+                        <div class="form-row">
+                            <div class="col">
+                          <label>Absent Mark</label>  
+                          <!--<input type="number" min="0" max="1" name="has_triggered" id="has_triggered" class="form-control" />-->
+                          <select class="custom-select" id="select_absent_mark">
+                            <option>V</option>
+                            <option>O</option>
+                            <option>X</option>
+                            <option>i</option>
+                            <option>s</option>
+                          </select> 
+                            </div>
+                        </div><br/>
+                        <div class="form-row">
+                            <div class="col">
+                          <label>Additional Info</label>  
+                          <input type="text" name="txtAbsentAdditionalInfo" id="txtAbsentAdditionalInfo" class="form-control"/>
+                          <input type="hidden" name="absent_id" id="absent_id" />
+                            </div>
+                        </div><br/>
+                          <input type="submit" name="btnFormUpdateAbsentData" id="btnFormUpdateAbsentData" value="Update" class="btn btn-success"/>  
+                     </form>  
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                </div>  -->
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+<!-- DELETE Absent data MODAL -->
+<div id="delete_absent_data_Modal" class="modal fade">  
+      <div class="modal-dialog modal-l modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Delete Absent Data</h5> 
+                     <!--<button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+                </div>  
+                <div class="modal-body">  
+                     <p id="txtDeleteAbsentConfirmation"></p>
+                </div>  
+                <div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+
+
+
+<!-- Sub MENU ABSENT MODAL - Modal Absent Summary  -->
+<div id="absent_summary_data_table_modal" class="modal fade bd-example-modal-xl" role="dialog" >  
+      <div class="modal-dialog modal-xl" style="width:1800px">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title" id="modal_title_for_absent_summary">ABSENT SUMMARY</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>
+                </div>  
+                <div class="modal-body" >  
+                            <div class="table-responsive" >
+                                <table class="display compact table-hover" id="tblDataAbsentSummary" style="width:100%" >
+                                    <thead class="text-primary"></thead>
+                                    <tbody></tbody>
+                                    <tfoot class="text-primary">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <!--<table id="example" class="display" width="100%"></table>-->
+                            </div>
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>-->  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+    <!-- Modal view DetailAbsentSummary   modal-dialog-scrollable    table-hover-->
+  <div class="modal fade" id="modalViewDetailAbsentSummary" role="dialog">
+    <div class="modal-dialog modal-xl " style="width:40%;" >
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <!--<div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:550px;">  -->
+                <table class="table table-striped " id="ViewDetailAbsentSummaryTable" style="width:100%;">
+                </table>
+          <!--</div>   -->
+        </div>
+        <div class="modal-footer">
+          <h5 align="left" id="h5DetailAbsentSummary"></h5>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+<!-- Modal view Presence Progress Report  -->
+<div id="presence_progress_report_modal" class="modal fade bd-example-modal-xl" role="dialog" >  
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 95% !important; height: 95% !important;">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title" id="modal_title_for_presence_progress_report">PROGRESS REPORT</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>
+                </div>  
+                <div class="modal-body" >  
+                            <div class="table-responsive">
+                                <table class="table row-border table-striped table-hover" id="tblPresenceProgressReport" style="width:100%" >
+                                </table>
+                                <!--<table id="example" class="display" width="100%"></table>-->
+                            </div>
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>-->  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+
+<!-- Menu trainee --------------------------------------------------------------------->
+
+
+<!-- MENU Trainee MODAL  -->
+<div id="trainee_data_table_modal" class="modal fade bd-example-modal-xl" role="dialog" >  
+      <div class="modal-dialog modal-xl" style="width:70%">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <h5 class="modal-title" id="title_modal_trainee_data">TRAINEE DATA</h5> 
+                     <button type="button" class="close btn-danger" data-dismiss="modal">&times;</button>
+                </div>  
+                <div class="modal-body" >  
+                            <div class="table-responsive" >
+                                <table class="display compact table-hover" id="tblDataTrainee" style="width:100%" ><!-- style="width:100%" class="table stripe table-bordered"-->
+                                    <thead class="text-primary"></thead>
+                                    <tbody></tbody>
+                                    <tfoot class="text-primary">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <!--<table id="example" class="display" width="100%"></table>-->
+                            </div>
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>-->  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+<!-- ADD/UPDATE Trainee data MODAL -->
+<div id="add_trainee_data_Modal" class="modal fade">  
+      <div class="modal-dialog modal-l modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title" >Trainee Data</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>  
+                </div>  
+                <div class="modal-body">  
+                     <form method="post" id="insert_trainee_form">
+                        <div class="form-row">  
+                            <div class="form-group col-md-6">
+                          <label for="txt_nis_trainee">NIS</label>  
+                          <input type="number" name="txt_nis_trainee" id="txt_nis_trainee" class="form-control" required/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                          <label for="txt_nama_trainee">Nama</label>  
+                          <input type="text" name="txt_nama_trainee" id="txt_nama_trainee" class="form-control" required/>  
+                            </div>
+                        </div><br>
+                        <div class="form-row">
+                            <div class="col">
+                          <label for="txt_gender_trainee">Gender</label>  
+                          <select class="custom-select" id="txt_gender_trainee">
+                            <option>L</option>
+                            <option>P</option>
+                          </select>
+                            </div>
+                            <div class="col">
+                          <label for="txt_batch_trainee">Batch</label>  
+                          <input type="number" min="44" name="txt_batch_trainee" id="txt_batch_trainee" class="form-control" required/>
+                            </div>
+                            <div class="col">
+                          <label for="txt_jurusan_trainee">Jurusan</label>  
+                          <select class="custom-select" id="txt_jurusan_trainee">
+                            <option>ipa</option>
+                            <option>ips</option>
+                          </select>
+                            </div>
+                        </div><br/>
+                        <div class="form-row">
+                            <div class="col">
+                          <label for="btnChooseImageFile">Image</label>  
+                          <input type="file" accept="image/*" onchange="loadFile(event)" class="form-control-file" id="btnChooseImageFile">
+                            </div>
+                            <div class="col">
+                          <img id="img_trainee" src="data:image/jpg;base64," width="150px" height="150px" alt="No data" />
+                          <input type="hidden" name="txt_image_data" id="txt_image_data"/>
+                            </div>
+                        </div><br><br>
+                        
+                          <input type="submit" name="insert_trainee_btn" id="insert_trainee_btn" value="Insert" class="btn btn-success"/>  
+                     </form>  
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                </div>  -->
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+
+<!-- ADD Trainee data from SQL MODAL -->
+<div id="add_data_trainee_from_sql_Modal" class="modal fade">  
+      <div class="modal-dialog modal-xl modal-dialog-centered" >  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h4 class="modal-title">SQL Executor - Enter SQL Statement</h4> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>  
+                </div>  
+                <div class="modal-body">  
+                     <form method="post" id="insert_trainee_form_sql"> 
+                          <textarea name="txtInsertTraineeSql" id="txtInsertTraineeSql" class="form-control" rows="17" style="font-family:monospace;" required></textarea> <br/>
+                          <input type="submit" name="execute" id="execute" value="Execute" class="btn btn-success" />  
+                     </form>  
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                </div>  -->
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+
+<!-- DELETE Trainee data MODAL -->
+<div id="delete_trainee_data_Modal" class="modal fade">  
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 80% !important; height: 95% !important;">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Delete Trainee Data</h5> 
+                     <!--<button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+                </div>  
+                <div class="modal-body" id="txtDeleteTraineeConfirmation">  
+                     
+                </div>  
+                <div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+ 
+
+  <!-------------------- Modal view Daily Absent-------------->
+  <div class="modal fade" id="modalViewAbsent" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable" style="max-width: 80% !important; height: 95% !important;" >
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          
+                <table class="table table-bordered table-hover" id="viewAbsentTable" >
+                </table>
+          
+        </div>
+        <div class="modal-footer">
+          <h3 align="left" id="labelSelectedDate"></h3>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+<!------------ W E B S I T E      M E N U     --------------------->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) ---------------------------------------------------------------MENU Area------------------------------------------>
+                    <h4 id="">
+                        
+                    </h4>
+                        <!--<a class="collapse-item" href="#">Admin</a>-->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="txtAdminName"></span>
+                                <img class="img-profile rounded-circle"
+                                    src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content --------------------------------------------------------------------------------------------------->
+                <div class="container-fluid"> <h4 id="txtWebsiteMenu"></h4><br>
+                    <table class="table table-striped" id="dailyScheduleTable" >
+                      <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Today's Schedule</th>
+                            <th>Start Time</th>
+                        </tr>
+                      </thead>
+                    </table>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; ArmSoft 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+
+
+
+
+ 
+
+
+
+
+
+<!-- Login MODAL -->
+<div id="login_modal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">  
+      <div class="modal-dialog modal-s modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">PKA PRESENCE DATA MANAGER</h5> 
+                     
+                </div>  
+                <div class="modal-body">  
+                    <div class="form-group">
+                        <input type="email" class="form-control form-control-user"
+                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                placeholder="Enter Username..." required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-user"
+                            id="exampleInputPassword" placeholder="Password" required>
+                    </div>
+                    <p id="txtLoginInformation"></p>
+                    <a href="#" onclick="login()" class="btn btn-primary btn-user btn-block">Login</a>
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
+                </div>  --> 
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+
+<!-- Menu Announcement --------------------------------------------------------------------->
+
+<!-- ADD/UPDATE/SET Announcement data MODAL -->
+<div id="announcement_setting_modal" class="modal fade">  
+      <div class="modal-dialog modal-xl modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title" >Announcement</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>  
+                </div>  
+                <div class="modal-body">  
+                     <form method="post" id="update_announcement_form">
+                        <div class="form-row">  
+                            <label for="txt_announcement">Announcement Content</label>  
+                            <textarea name="txt_announcement" id="txt_announcement" rows="10"  class="form-control"></textarea>
+                        </div><br>
+                        <div class="form-row">
+                            
+                          <label for="txt_post_now">Post now? (1=yes, 0=no)</label>  
+                          <select class="custom-select" id="txt_post_now">
+                            <option>0</option>
+                            <option>1</option>
+                          </select>
+                        </div><br>
+                        
+                        <div class="form-row">
+                          <input type="submit" name="insert_announcement_btn" id="insert_announcement_btn" value="Save" class="btn btn-success"/>
+                        </div> 
+                     </form>  
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                </div>  -->
+           </div>  
+      </div>  
+ </div> 
+
+
+
+
+
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="logout()">Logout</button>
+                    <!--<a class="btn btn-primary" href="login.html">Logout</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+<!--------------- Alert/Information MODAL -->
+<div id="alert_modal" class="modal fade">  
+      <div class="modal-dialog modal-s modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Information</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button> 
+                </div>  
+                <div class="modal-body" id="alert_txt_content">  
+                     
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
+                </div>  --> 
+           </div>  
+      </div>  
+ </div> 
+
+
+
+
+<!-- MENU Refresh clients confirmation data MODAL -->
+<div id="refresh_client_confirmation_Modal" class="modal fade">  
+      <div class="modal-dialog modal-l ">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Confirmation</h5> 
+                     <!--<button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+                </div>  
+                <div class="modal-body">  
+                     Are you sure to refresh all clients browser?
+                </div>  
+                <div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                     <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="requestRefreshAllClients()">Yes</button>
+                </div>  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+<!-- MENU Clear Absent Timer confirmation MODAL -->
+<div id="clear_absent_timer_confirmation_Modal" class="modal fade">  
+      <div class="modal-dialog modal-l ">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title">Confirmation</h5> 
+                     <!--<button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+                </div>  
+                <div class="modal-body">  
+                     Are you sure to clear absent timer ?<br>(it's mean canceling absent schedule <br>and absent schedule input display <br>window on client will be closed)
+                </div>  
+                <div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                     <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="requestClearAbsentTimer()">Yes</button>
+                </div>  
+           </div>  
+      </div>  
+ </div>  
+
+
+
+
+
+<!-- Menu Update Absent duration --------------------------------------------------------------------->
+
+<!-- Update Absent duration data MODAL -->
+<div id="update_absent_timer_modal" class="modal fade">  
+      <div class="modal-dialog modal-l modal-dialog-centered">  
+           <div class="modal-content">  
+                <div class="modal-header bg-primary text-white">  
+                     <h5 class="modal-title" >Set Absent Duration</h5> 
+                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>  
+                </div>  
+                <div class="modal-body">  
+                     <form method="post" id="update_absent_timer_form">
+                        <div class="form-row">  
+                            <p>This feature is for change how long duration for absent input display will show on client.</p>
+                        </div><br>
+                        <div class="form-row">
+                          <label for="txtUpdateAbsentDuration">How long? (in minutes)</label>  
+                          <input type="number" min="1" max="30" name="txtUpdateAbsentDuration" id="txtUpdateAbsentDuration" class="form-control" required/>
+                        </div><br>
+                        
+                        <div class="form-row">
+                          <input type="submit" name="update_absent_timer_btn" id="update_absent_timer_btn" value="Update" class="btn btn-success"/>
+                        </div> 
+                     </form>  
+                </div>  
+                <!--<div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                </div>  -->
+           </div>  
+      </div>  
+ </div> 
+
+
+
+
+
+<!---------------------------- event handling ------------------------------------->
+<script type="text/javascript">
+  var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            //var output = document.getElementById('img_trainee');
+            //output.src = reader.result;
+            document.getElementById('img_trainee').src = reader.result;
+            $('#txt_image_data').val(reader.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+  };
+
+
+
+        $(document).ready(function () {
+            $('#login_modal').modal('show');
+            $('#modalViewDetailAbsentSummary').on('show.bs.modal', function (e) {
+                var data = ($(e.relatedTarget).data('id')).split('~~~---|||<<<>>>|||---~~~');
+                var inner = ""; 
+                if(data[2]==='V'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-success\">V</span>&nbsp;&nbsp;";//+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                else if(data[2]==='O'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-warning\">O</span>&nbsp;&nbsp;"; //+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                else if(data[2]==='X'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-danger\">X</span>&nbsp;&nbsp;";//+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                else if(data[2]==='i'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-primary\">i</span>&nbsp;&nbsp;";//+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                else if(data[2]==='s'){
+                    inner = data[1]+" -- "+"<span class=\"badge badge-pill badge-info\">s</span>&nbsp;&nbsp;"; //+" -- Week: "+data[2]+"&nbsp;&nbsp;";
+                }
+                document.getElementById("h5DetailAbsentSummary").innerHTML = inner;
+                reqestDetailAbsentSummary(data);
+            });
+
+
+
+            $('#update_announcement_form').on("submit", function(event){  //console.log("SUBMIIIIIIIIIIIIIT");
+                event.preventDefault();  
+                    if($('#txt_post_now').val() == '') { 
+                         
+                    }
+                    else {  
+                        socket.send('updateAnnouncementData~~~---|||<<<>>>|||---~~~'+ $('#txt_announcement').val() + '~~~---|||<<<>>>|||---~~~'+ $('#txt_post_now').val() );  
+                    }
+                    
+            });
+
+
+
+            $('#update_absent_timer_form').on("submit", function(event){  //console.log("SUBMIIIIIIIIIIIIIT");
+                event.preventDefault();  
+                    if($('#txtUpdateAbsentDuration').val() == '') { 
+                         
+                    }
+                    else {  
+                        socket.send('updateAbsentDurationData~~~---|||<<<>>>|||---~~~'+ $('#txtUpdateAbsentDuration').val()); 
+                    }
+                    
+            });
+
+
+            
+
+        });//end $(document).ready
+</script>
+
+
+
+
+</body>
+
+</html>
